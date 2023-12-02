@@ -1,0 +1,15 @@
+[project]
+name = "basket_case"
+version = "0.1.0"
+description = "A lib to fit objects of different size into multiple baskets (of the same size) optimally. For example, use it to backup contents to CDs, DVDs, USB sticks, etc"
+authors = [
+    {name = "pynchia", email = "pynchia@gmail.com"},
+]
+dependencies = []
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
