@@ -25,8 +25,8 @@ class PredefinedSizes(Enum):
 def fit_objects_into_baskets(
     objects: dict[str: int],
     basket_size: int,
-    preserve_input: bool=True,
     ignore_oversize: bool=False,
+    preserve_input: bool=True,
 ) -> Iterator[dict[str, int]]:
     """Group the given objects into several baskets, maximising the room taken in each basket.
 
