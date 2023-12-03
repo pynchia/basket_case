@@ -25,8 +25,8 @@ class PredefinedSizes(Enum):
 def fit_objects_into_baskets(
     objects: dict[str: int],
     basket_size: int,
-    preserve_input: bool=True,
     ignore_oversize: bool=False,
+    preserve_input: bool=True,
 ) -> Iterator[dict[str, int]]:
     """Group the given objects into several baskets, maximising the room taken in each basket.
 
@@ -58,12 +58,12 @@ def fit_objects_into_baskets(
         objects = copy.copy(objects)  # make a shallow copy of the input
     consume(objects.pop(name, None) for name in oversize_objects)  # remove the oversize objs
     while objects:
-        max_comb_size = 0
+        best_comb_size = 0
         for k in range(1, len(objects)+1):
             for comb in it.combinations(objects, k):
                 comb_size = sum(objects[name] for name in comb)
-                if max_comb_size <= comb_size <= basket_size:
-                    max_comb_size = comb_size  # update max size found
+                if best_comb_size <= comb_size <= basket_size:
+                    best_comb_size = comb_size  # update max size found
                     best_comb = comb  # save combination
         yield {name: objects[name] for name in best_comb}  # yield a basket
         consume(objects.pop(name, None) for name in best_comb)  # remove the objs in the comb

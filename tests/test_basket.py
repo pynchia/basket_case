@@ -1,9 +1,7 @@
-import copy
-
 import pytest
 
 from basket_case import fit_objects_into_baskets
-from .fixtures import OBJECTS_4, OBJECTS_5, OVERSIZE_OBJECTS_1, OVERSIZE_OBJECTS_2, OVERSIZE_OBJECTS_ALL
+from tests.fixtures import OBJECTS_4, OBJECTS_5, OVERSIZE_OBJECTS_1, OVERSIZE_OBJECTS_2, OVERSIZE_OBJECTS_ALL
 
 
 def test_fit_no_objects():
@@ -86,7 +84,7 @@ def test_fit_objects_ignore_oversize(objects, basket_size, expected_baskets):
     ],
 )
 def test_fit_objects_corrupt_input_ignore_oversize(objects, basket_size, expected_baskets):
-    baskets = iter(fit_objects_into_baskets(objects, basket_size, preserve_input=False, ignore_oversize=True))
+    baskets = iter(fit_objects_into_baskets(objects, basket_size, ignore_oversize=True, preserve_input=False))
     for b, exp_b in zip(baskets, expected_baskets, strict=True):
         assert b == exp_b
     assert not objects  # all consumed in-place
