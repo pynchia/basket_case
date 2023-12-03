@@ -1,7 +1,7 @@
 import pytest
 
 from basket_case import fit_objects_into_baskets
-from .fixtures import OBJECTS_4, OBJECTS_5, OVERSIZE_OBJECTS_1, OVERSIZE_OBJECTS_2, OVERSIZE_OBJECTS_ALL
+from tests.fixtures import OBJECTS_4, OBJECTS_5, OVERSIZE_OBJECTS_1, OVERSIZE_OBJECTS_2, OVERSIZE_OBJECTS_ALL
 
 
 def test_fit_no_objects():
