@@ -25,7 +25,7 @@ class PredefinedSizes(Enum):
 def fit_objects_into_baskets(
     objects: dict[str: int],
     basket_size: int,
-    corrupt_input: bool=False,
+    preserve_input: bool=True,
     ignore_oversize: bool=False,
 ) -> Iterator[dict[str, int]]:
     """Group the given objects into several baskets, maximising the room taken in each basket.
@@ -34,8 +34,8 @@ def fit_objects_into_baskets(
         objects (dict[str: int]): each object expressed as name: size.
             Note: the size of an object can be zero (useful for files of zero length)
         basket_size (int): the size of the basket. All baskets have the same size.
-        corrupt_input (bool, optional): alter the input objects in the process (faster)
-        ignore_oversize (bool, optional): ignore the oversize objects instead of raising ValueError
+        preserve_input (bool, optional): if True (default) do not corrupt the input (slower, more memory)
+        ignore_oversize (bool, optional): if True ignore the oversize objects instead of raising ValueError
 
     Yields:
         Iterator[dict[str, int]]: each dict yielded represents a basket with its objects
@@ -54,8 +54,8 @@ def fit_objects_into_baskets(
         raise ValueError(oversize_objects)
 
     consume = deque(maxlen=0).extend
-    if not corrupt_input:
-        objects = copy.copy(objects)  # make a copy
+    if preserve_input:
+        objects = copy.copy(objects)  # make a shallow copy of the input
     consume(objects.pop(name, None) for name in oversize_objects)  # remove the oversize objs
     while objects:
         max_comb_size = 0
