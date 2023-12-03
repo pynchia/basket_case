@@ -3,8 +3,22 @@ Basket_case lib
 """
 
 from collections import deque
+from enum import Enum
 import itertools as it
 from typing import Iterator
+
+
+class PredefinedSizes(Enum):
+    """Helper values for common basket sizes
+    """
+    cd = 737280000
+    dvd = 4707319808
+    dvd_dl = 8543666176
+    kb = 2**10
+    mb = 2**20
+    gb = 2**30
+    tb = 2**40
+    pb = 2**50
 
 
 def fit_objects_into_baskets(
