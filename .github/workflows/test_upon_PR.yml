@@ -1,0 +1,21 @@
+name: run-tests-upon-PR
+run-name: ${{ github.actor }} creates a PR to main
+
+on:
+  pull_request:
+    # Sequence of patterns matched against refs/heads
+    branches:    
+      - main
+      - 'releases/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v4
+        - name: Setup PDM
+          uses: pdm-project/setup-pdm@v3
+        - name: Install dependencies
+          run: pdm install -d
+        - name: Run unit tests
+          run: pdm run pytest tests
